@@ -15,5 +15,6 @@ Install required packages:
     npm install
     
 Run the tests:
+
     npm run test
 
