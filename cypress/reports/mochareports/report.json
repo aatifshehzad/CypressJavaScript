@@ -1,0 +1,381 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 9,
+    "passes": 8,
+    "pending": 0,
+    "failures": 1,
+    "start": "2022-02-14T12:45:29.530Z",
+    "end": "2022-02-14T12:46:30.003Z",
+    "duration": 35166,
+    "testsRegistered": 9,
+    "passPercent": 88.88888888888889,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "82d5695e-6638-4217-9ad3-50327c45ed61",
+      "title": "",
+      "fullFile": "cypress/integration/interceptAPIRequest.spec.js",
+      "file": "cypress/integration/interceptAPIRequest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b661f475-ce74-41dc-9a2e-d7b9452f8e4d",
+          "title": "API Intercept and Mocking Suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify Only One Book Message",
+              "fullTitle": "API Intercept and Mocking Suite Verify Only One Book Message",
+              "timedOut": null,
+              "duration": 5699,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(baseURL + '/angularAppdemo/');\ncy.intercept({\n  method: 'GET',\n  url: baseURL + '/Library/GetBook.php?AuthorName=shetty'\n}, {\n  statusCode: 200,\n  body: [{\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"RSU\",\n    \"aisle\": \"2301\"\n  }]\n}).as('bookRetrievals');\ncy.get(\"button.btn.btn-primary\").click();\ncy.wait('@bookRetrievals');\ncy.get('p').should('have.text', 'Oops only 1 Book available');",
+              "err": {},
+              "uuid": "1800ebe7-92cd-4895-9110-481a3d341011",
+              "parentUUID": "b661f475-ce74-41dc-9a2e-d7b9452f8e4d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Data Validation between API and Front End",
+              "fullTitle": "API Intercept and Mocking Suite Data Validation between API and Front End",
+              "timedOut": null,
+              "duration": 1383,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(baseURL + '/angularAppdemo/');\ncy.intercept({\n  method: 'GET',\n  url: baseURL + '/Library/GetBook.php?AuthorName=shetty'\n}, {\n  statusCode: 200,\n  body: [{\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"RSU\",\n    \"aisle\": \"2301\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"BSG\",\n    \"aisle\": \"2302\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"LSA\",\n    \"aisle\": \"2303\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"DSR\",\n    \"aisle\": \"2304\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"RCD\",\n    \"aisle\": \"2305\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"TSD\",\n    \"aisle\": \"2307\"\n  }, {\n    \"book_name\": \"RestAssured with Java\",\n    \"isbn\": \"TSD\",\n    \"aisle\": \"211\"\n  }]\n}).as('bookRetrievals');\ncy.get(\"button.btn.btn-primary\").click();\ncy.wait('@bookRetrievals').should(({\n  request,\n  response\n}) => {\n  cy.get('tbody > tr').should('have.length', response.body.length);\n});",
+              "err": {},
+              "uuid": "172eac49-2684-4c7f-8539-5da70ab8413d",
+              "parentUUID": "b661f475-ce74-41dc-9a2e-d7b9452f8e4d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify Security Scenario by Mocking Request",
+              "fullTitle": "API Intercept and Mocking Suite Verify Security Scenario by Mocking Request",
+              "timedOut": null,
+              "duration": 1662,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"screenshots/interceptAPIRequest.spec.js/API Intercept and Mocking Suite -- Verify Security Scenario by Mocking Request (failed).png\"",
+              "code": "cy.visit(baseURL + '/angularAppdemo/');\ncy.intercept('GET', baseURL + '/Library/GetBook.php?AuthorName=shetty', req => {\n  req.url = baseURL + '/Library/GetBook.php?AuthorName=malhotra';\n  req.continue(res => {\n    expect(res.statusCode).to.equal(403);\n  });\n}).as('dummyURL');\ncy.get(\"button.btn.btn-primary\").click();\ncy.wait('@dummyURL');",
+              "err": {
+                "message": "AssertionError: expected 200 to equal 403",
+                "estack": "AssertionError: expected 200 to equal 403\n    at eval (https://rahulshettyacademy.com/__cypress/tests?p=cypress\\integration\\interceptAPIRequest.spec.js:173:35)",
+                "diff": "- 200\n+ 403\n"
+              },
+              "uuid": "14efc076-244c-4290-8948-a93f071945cc",
+              "parentUUID": "b661f475-ce74-41dc-9a2e-d7b9452f8e4d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "1800ebe7-92cd-4895-9110-481a3d341011",
+            "172eac49-2684-4c7f-8539-5da70ab8413d"
+          ],
+          "failures": [
+            "14efc076-244c-4290-8948-a93f071945cc"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 8744,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "0abd0415-8be6-4f13-aaff-a746f614288e",
+      "title": "",
+      "fullFile": "cypress/integration/shoppingCart.spec.js",
+      "file": "cypress/integration/shoppingCart.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1ae8358a-bdb5-4d80-be3e-6fa090dcf162",
+          "title": "Shopping Cart Validation Suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify Product Selection",
+              "fullTitle": "Shopping Cart Validation Suite Verify Product Selection",
+              "timedOut": null,
+              "duration": 13317,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "homepage.getShopTab().click();\nif (Array.isArray(testData.product)) {\n  testData.product.forEach(function (prodName) {\n    cy.selectProduct(prodName);\n  });\n} else {\n  cy.selectProduct(testData.product);\n}",
+              "err": {},
+              "uuid": "ca1fe4a6-a6f8-411e-91ac-e41ab77da5ef",
+              "parentUUID": "1ae8358a-bdb5-4d80-be3e-6fa090dcf162",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify Checkout Functionality",
+              "fullTitle": "Shopping Cart Validation Suite Verify Checkout Functionality",
+              "timedOut": null,
+              "duration": 5862,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "productpage.getCheckOut().click();\nproductpage.getProducts().should('have.length', 2);\nproductpage.getTotaleachrow().each(($el, index, $list) => {\n  const actualText = $el.text();\n  var res = actualText.split(\" \");\n  res = res[1].trim();\n  finalTotal = Number(finalTotal) + Number(res);\n}).then(function () {\n  cy.log(finalTotal);\n});\nproductpage.getTotal().then(function ($el) {\n  const actualTotalText = $el.text();\n  var actualTotal = actualTotalText.split(\" \");\n  actualTotal = actualTotal[1].trim();\n  expect(actualTotal).to.equal(String(finalTotal));\n});\nproductpage.getCheckoutFinal().click();\nproductpage.getCountry().type(testData.country);\nproductpage.getCountrySuggestion().each(($el, index, $list) => {\n  if ($el.text().includes(testData.country)) {\n    //wrap resolves the promise\n    cy.wrap($el).click();\n  }\n});\nproductpage.getCountry().should('have.value', testData.country);\nproductpage.getCheckBoxTerms().check({\n  force: true\n}).should('be.checked');\nproductpage.getPurchase().click();\nproductpage.getSuccessAlert().should('contain', 'Success! Thank you! Your order will be delivered in next few weeks :-).');",
+              "err": {},
+              "uuid": "d7a4544d-2e21-428d-8e20-230a19374089",
+              "parentUUID": "1ae8358a-bdb5-4d80-be3e-6fa090dcf162",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "ca1fe4a6-a6f8-411e-91ac-e41ab77da5ef",
+            "d7a4544d-2e21-428d-8e20-230a19374089"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 19179,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "586c0ad0-b1ee-4426-9f8f-3928bfb72bd6",
+      "title": "",
+      "fullFile": "cypress/integration/userApiTest.spec.js",
+      "file": "cypress/integration/userApiTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "84253d7c-7c5e-46b3-a5c2-7ed200f047b4",
+          "title": "Reqres API Test Suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify Create User API",
+              "fullTitle": "Reqres API Test Suite Verify Create User API",
+              "timedOut": null,
+              "duration": 1278,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const apiEndPoint = baseURL + '/api/users';\nconst payload = {\n  \"name\": \"morpheus\",\n  \"job\": \"leader\"\n};\ncy.request('POST', apiEndPoint, payload).then(function (response) {\n  expect(response.status).to.equal(201);\n  expect(response.body).to.have.property('name', 'morpheus');\n  expect(response.body).to.not.be.oneOf([null, \"\"]);\n  expect(response.body).to.have.property('createdAt').to.not.be.oneOf([null, \"\"]);\n  expect(response.body).to.have.property('job', 'leader');\n});",
+              "err": {},
+              "uuid": "f86508c3-3749-40ea-bc79-e6ea27450e33",
+              "parentUUID": "84253d7c-7c5e-46b3-a5c2-7ed200f047b4",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f86508c3-3749-40ea-bc79-e6ea27450e33"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1278,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "8047bf8b-4282-4401-98d8-ee8f7f094064",
+      "title": "",
+      "fullFile": "cypress/integration/homePage.spec.js",
+      "file": "cypress/integration/homePage.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "06801735-3f9e-4ac4-9bd0-941027e3ee5c",
+          "title": "Home Page Validation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify Two Way Binding",
+              "fullTitle": "Home Page Validation Verify Two Way Binding",
+              "timedOut": null,
+              "duration": 5733,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "homepage.getEditBox().type(testData.name);\nhomepage.getGender().select(testData.gender);\nhomepage.getTwoWayDataBinding().should('have.value', testData.name);",
+              "err": {},
+              "uuid": "7f24cc51-a96b-4785-aad6-004bb7e97b41",
+              "parentUUID": "06801735-3f9e-4ac4-9bd0-941027e3ee5c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify Minimum Length",
+              "fullTitle": "Home Page Validation Verify Minimum Length",
+              "timedOut": null,
+              "duration": 198,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "homepage.getEditBox().clear();\nhomepage.getEditBox().should('have.attr', 'minlength', '2');",
+              "err": {},
+              "uuid": "be9d5b38-9ec8-408b-b3ab-cc2a00a35f5d",
+              "parentUUID": "06801735-3f9e-4ac4-9bd0-941027e3ee5c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify Entrepreneur (disabled) is disabled",
+              "fullTitle": "Home Page Validation Verify Entrepreneur (disabled) is disabled",
+              "timedOut": null,
+              "duration": 34,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "homepage.getEntrepreneur().should('be.disabled');",
+              "err": {},
+              "uuid": "5a0ce363-ad7f-4bc2-a2fa-0594a5edf632",
+              "parentUUID": "06801735-3f9e-4ac4-9bd0-941027e3ee5c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7f24cc51-a96b-4785-aad6-004bb7e97b41",
+            "be9d5b38-9ec8-408b-b3ab-cc2a00a35f5d",
+            "5a0ce363-ad7f-4bc2-a2fa-0594a5edf632"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5965,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.0.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.0.1"
+    }
+  }
+}

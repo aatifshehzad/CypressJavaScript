@@ -1,0 +1,24 @@
+{
+    "defaultCommandTimeout": 10000,
+    "pageLoadTimeout": 120000,
+    "env": {
+        "url": "https://rahulshettyacademy.com",
+        "reqres_url": "https://reqres.in"
+    },
+    "retries": {
+        "runMode": 1
+    },
+    "reporter": "cypress-multi-reporters",
+    "reporterOptions": {
+        "reporterEnabled": "mochawesome",
+        "mochawesomeReporterOptions": {
+            "reportDir": "cypress/reports/mocha",
+            "quite": true,
+            "overwrite": false,
+            "html": false,
+            "json": true
+        }
+    },
+    "screenshotsFolder": "cypress/reports/mochareports/screenshots",
+    "video": true
+}
