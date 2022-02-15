@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean:reports": "rmdir /q /s cypress\\reports && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
+    "clean:reports": "(if exist cypress\\reports rmdir /q /s cypress\\reports) && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
     "pretest": "npm run clean:reports",
     "scripts": "cypress run",
     "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
@@ -12,7 +12,7 @@
     "posttest": "npm run combine-reports && npm run generate-report",
     "test" : "npm run scripts || npm run posttest"
   },
-  "author": "",
+  "author": "Muhammad Aatif Shehzad",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^9.4.1",
